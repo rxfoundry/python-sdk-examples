@@ -12,3 +12,37 @@ python = ">=3.11,<3.13"
 "rxfoundry.clients.swifty-oauth-api" = ">=0.0.847"
 "rxfoundry.clients.swifty_api" = ">=0.0.847"
 
+[tool.poetry.dev-dependencies]
+black = "24.3.0"
+coverage = "^7.2"
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+target_version = [ "py311", "py312" ]
+include = "\\.pyi?$"
+exclude = """
+/(\\.git/
+  |\\.eggs
+  |\\.hg
+  |__pycache__
+  |\\.cache
+  |\\.ipynb_checkpoints
+  |\\.mypy_cache
+  |\\.pytest_cache
+  |\\.tox
+  |\\.venv
+  |node_modules
+  |_build
+  |buck-out
+  |build
+  |dist
+  |media
+  |infrastructure
+  |templates
+  |locale
+)/
+"""
