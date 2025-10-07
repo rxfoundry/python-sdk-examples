@@ -42,5 +42,5 @@ if __name__ == "__main__":
 
     token_response = get_auth_tokens(args.host, args.username, args.password)
     print(token_response)
-    user_info = get_user_info(args.hoste, token_response.access_token)
+    user_info = get_user_info(args.host, token_response.access_token)
     print(user_info)
