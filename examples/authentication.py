@@ -19,10 +19,8 @@ def get_auth_tokens(host: str, username: str, password: str) -> TokenResponse | 
             print("Exception when calling DefaultApi->get_token: %s\n" % e)
 
 
-def get_user_info(token) -> UserInfoResponse | None:
-    configuration = rxfoundry.clients.swifty_oauth_api.Configuration(
-        host="https://bootstrap.swiftyrx.dev"
-    )
+def get_user_info(host, token) -> UserInfoResponse | None:
+    configuration = rxfoundry.clients.swifty_oauth_api.Configuration(host=host)
     with rxfoundry.clients.swifty_oauth_api.ApiClient(configuration) as api_client:
         api_instance = rxfoundry.clients.swifty_oauth_api.OAuthApi(api_client)
 
@@ -44,5 +42,5 @@ if __name__ == "__main__":
 
     token_response = get_auth_tokens(args.host, args.username, args.password)
     print(token_response)
-    user_info = get_user_info(token_response.access_token)
+    user_info = get_user_info(args.hoste, token_response.access_token)
     print(user_info)

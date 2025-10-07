@@ -29,4 +29,5 @@ if __name__ == "__main__":
     patients_response = get_patients(
         args.host, token_response.access_token, "Paul Tindall 1970-04-25"
     )
-    print(patients_response)
+    for patient in patients_response:
+        print(patient)
