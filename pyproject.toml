@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "python-sdk-examples"
+version = "0.1.0"
+description = "Examples to demonstrate usage of the Swifty Python SDK"
+license = "Apache-2.0"
+authors = ["Paul Tindall <paul.tindall@rxfoundry.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+"rxfoundry.clients.swifty-oauth-api" = ">=0.0.847"
+"rxfoundry.clients.swifty_api" = ">=0.0.847"
+
