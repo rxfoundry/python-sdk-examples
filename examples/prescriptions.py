@@ -16,7 +16,7 @@ def get_prescriptions(host: str, token: str):
             )
             return api_response
         except ApiException as e:
-            print("Exception when calling DefaultApi->get_patients: %s\n" % e)
+            print("Exception when calling PrescriptionApi->get_patients: %s\n" % e)
 
 
 if __name__ == "__main__":
