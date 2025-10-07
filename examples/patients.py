@@ -11,7 +11,7 @@ def get_patients(host: str, token: str, q: str):
     with rxfoundry.clients.swifty_api.ApiClient(configuration) as api_client:
         api_instance = rxfoundry.clients.swifty_api.PatientApi(api_client)
         try:
-            api_response = api_instance.get_patients(q="Paul Tindall")
+            api_response = api_instance.get_patients(q=q)
             return api_response
         except ApiException as e:
             print("Exception when calling DefaultApi->get_patients: %s\n" % e)
