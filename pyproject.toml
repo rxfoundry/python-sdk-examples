@@ -16,6 +16,8 @@ python = ">=3.11,<3.13"
 black = "24.3.0"
 coverage = "^7.2"
 flake8 = "^4.0.1"
+pytest = "^7.4.2"
+
 
 [build-system]
 requires = ["poetry-core"]
