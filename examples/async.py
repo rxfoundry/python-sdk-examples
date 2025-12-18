@@ -1,6 +1,7 @@
 import argparse
 import rxfoundry.clients.swifty_api
-from rxfoundry.clients.swifty_api import PatientActivityNotification, PatientData, PatientAddressData, PatientInsuranceData, PatientActivityNotificationActivityData
+from rxfoundry.clients.swifty_api import PatientActivityNotification, PatientData, PatientAddressData, \
+    PatientInsuranceData, PatientHealthProfileData, Code, MedicationRef, PatientActivityData
 from rxfoundry.clients.swifty_api.rest import ApiException
 from authentication import get_auth_tokens, get_user_info
 
@@ -12,11 +13,10 @@ def add_patient_data(host: str, token: str):
         api_instance = rxfoundry.clients.swifty_api.AsyncApi(api_client)
         try:
             patient_activity_notification = PatientActivityNotification(
-                object_type="patient",
                 external_patient_id="7654322",
                 external_system_slug="CPD-FRONTEND",
                 action = "created",
-                activity_data=PatientActivityNotificationActivityData(
+                activity_data=PatientActivityData(
                     PatientData(
                         first_name="John",
                         last_name="Doe",
@@ -43,11 +43,10 @@ def update_patient_data(host: str, token: str):
         api_instance = rxfoundry.clients.swifty_api.AsyncApi(api_client)
         try:
             patient_activity_notification = PatientActivityNotification(
-                object_type="patient",
                 external_patient_id="7654321",
                 external_system_slug="CPD-FRONTEND",
                 action = "updated",
-                activity_data=PatientActivityNotificationActivityData(
+                activity_data=PatientActivityData(
                     PatientData(
                         first_name="Jane",
                         last_name="Sanchez",
@@ -74,11 +73,10 @@ def add_patient_address_data(host: str, token: str):
         api_instance = rxfoundry.clients.swifty_api.AsyncApi(api_client)
         try:
             patient_activity_notification = PatientActivityNotification(
-                object_type="address",
                 external_patient_id="7654322",
                 external_system_slug="CPD-FRONTEND",
                 action = "created",
-                activity_data=PatientActivityNotificationActivityData(
+                activity_data=PatientActivityData(
                     PatientAddressData(
                         address_line_one="123 Main Street",
                         city="Boston",
@@ -104,11 +102,10 @@ def update_patient_address_data(host: str, token: str):
         api_instance = rxfoundry.clients.swifty_api.AsyncApi(api_client)
         try:
             patient_activity_notification = PatientActivityNotification(
-                object_type="address",
                 external_patient_id="7654322",
                 external_system_slug="CPD-FRONTEND",
                 action = "updated",
-                activity_data=PatientActivityNotificationActivityData(
+                activity_data=PatientActivityData(
                     PatientAddressData(
                         address_line_one="125 Main Street",
                         city="Boston",
@@ -134,11 +131,10 @@ def add_patient_insurance_data(host: str, token: str):
         api_instance = rxfoundry.clients.swifty_api.AsyncApi(api_client)
         try:
             patient_activity_notification = PatientActivityNotification(
-                object_type="insurance",
                 external_patient_id="7654321",
                 external_system_slug="CPD-FRONTEND",
                 action = "created",
-                activity_data=PatientActivityNotificationActivityData(
+                activity_data=PatientActivityData(
                     PatientInsuranceData(
                         member_id="123456789",
                         rx_group="RX1234",
@@ -164,11 +160,10 @@ def update_patient_insurance_data(host: str, token: str):
         api_instance = rxfoundry.clients.swifty_api.AsyncApi(api_client)
         try:
             patient_activity_notification = PatientActivityNotification(
-                object_type="insurance",
                 external_patient_id="7654321",
                 external_system_slug="CPD-FRONTEND",
                 action = "updated",
-                activity_data=PatientActivityNotificationActivityData(
+                activity_data=PatientActivityData(
                     PatientInsuranceData(
                         member_id="123456789",
                         rx_group="RX1234",
@@ -184,6 +179,42 @@ def update_patient_insurance_data(host: str, token: str):
             return api_response
         except ApiException as e:
             print("Exception when calling AsyncApi->add_patient_insurance_data: %s\n" % e)
+
+def add_allergies_conditions_medications(host: str, token: str):
+    configuration = rxfoundry.clients.swifty_api.Configuration(
+        host=f"{host}/api", access_token=token
+    )
+    with rxfoundry.clients.swifty_api.ApiClient(configuration) as api_client:
+        api_instance = rxfoundry.clients.swifty_api.AsyncApi(api_client)
+        try:
+            patient_activity_notification = PatientActivityNotification(
+                external_patient_id="7654321",
+                external_system_slug="CPD-FRONTEND",
+                action="updated",
+                activity_data=PatientActivityData(
+                    PatientHealthProfileData(
+                        object_type="health_profile",
+                        add_allergies=[
+                            Code(code="39579001"),
+                            Code(code="91939003")
+                        ],
+                        add_conditions=[
+                            Code(code="F50"),
+                            Code(code="I46")
+                        ],
+                        add_medications=[
+                            MedicationRef(reference="312086",reference_type="SCD")
+                        ]
+                    )
+                )
+            )
+            api_response = api_instance.create_patient_activity(
+                patient_activity_notification=patient_activity_notification
+            )
+            return api_response
+        except ApiException as e:
+            print("Exception when calling AsyncApi->add_allergies: %s\n" % e)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -214,6 +245,8 @@ if __name__ == "__main__":
     # update_patient_insurance_data_response = update_patient_insurance_data(args.host, token_response.access_token)
     # print(update_patient_insurance_data_response)
 
+    update_patient_health_profile_response = add_allergies_conditions_medications(args.host, token_response.access_token)
+    print(update_patient_health_profile_response)
 
 
 
