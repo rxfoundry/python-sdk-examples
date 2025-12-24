@@ -530,14 +530,14 @@ six = ">=1.5"
 
 [[package]]
 name = "rxfoundry-clients-swifty-api"
-version = "0.1.970"
+version = "0.1.979"
 description = "SwiftyRX API"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "rxfoundry_clients_swifty_api-0.1.970-py3-none-any.whl", hash = "sha256:9700e848621038dd5f0239b91092765a2bbec94d2204f98df5a22eada1dc59e5"},
-    {file = "rxfoundry_clients_swifty_api-0.1.970.tar.gz", hash = "sha256:7cf8025f1799a33fe663c94e9d26645ebe3443dcae2b2fa57d764e14d5ccf7a3"},
+    {file = "rxfoundry_clients_swifty_api-0.1.979-py3-none-any.whl", hash = "sha256:44992da9f5f2fcab41e5638c51f6e15518a46db1d3e28d542bcb157147fb782b"},
+    {file = "rxfoundry_clients_swifty_api-0.1.979.tar.gz", hash = "sha256:ae91537f1c257c751607d2f3a9af78415844f3ebf5a3fe0e074455f329d8f5cc"},
 ]
 
 [package.dependencies]
@@ -548,14 +548,14 @@ urllib3 = ">=2.1.0,<3.0.0"
 
 [[package]]
 name = "rxfoundry-clients-swifty-oauth-api"
-version = "0.1.970"
+version = "0.1.979"
 description = "Swifty OAuth API"
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["main"]
 files = [
-    {file = "rxfoundry_clients_swifty_oauth_api-0.1.970-py3-none-any.whl", hash = "sha256:6ef02249371be58d372c4e029cd8fed49918160ae8a75ae3395bde9ee1742726"},
-    {file = "rxfoundry_clients_swifty_oauth_api-0.1.970.tar.gz", hash = "sha256:4187b4556ce7593ae09eb9b75432139ef646c792200fb00e6b22765ce24260bf"},
+    {file = "rxfoundry_clients_swifty_oauth_api-0.1.979-py3-none-any.whl", hash = "sha256:2d0b81e243504d1c258b2d3318251d85bacb7a8e99a01e6a47e60bf772ee4236"},
+    {file = "rxfoundry_clients_swifty_oauth_api-0.1.979.tar.gz", hash = "sha256:94aaa23635d186dfa7340d20d8211b3fb74753927a759c82fc1d444f8da21810"},
 ]
 
 [package.dependencies]

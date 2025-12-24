@@ -180,7 +180,7 @@ def update_patient_insurance_data(host: str, token: str):
         except ApiException as e:
             print("Exception when calling AsyncApi->add_patient_insurance_data: %s\n" % e)
 
-def add_allergies_conditions_medications(host: str, token: str):
+def update_allergies_conditions_medications(host: str, token: str):
     configuration = rxfoundry.clients.swifty_api.Configuration(
         host=f"{host}/api", access_token=token
     )
@@ -194,16 +194,17 @@ def add_allergies_conditions_medications(host: str, token: str):
                 activity_data=PatientActivityData(
                     PatientHealthProfileData(
                         object_type="health_profile",
-                        add_allergies=[
+                        allergies=[
                             Code(code="39579001"),
                             Code(code="91939003")
                         ],
-                        add_conditions=[
+                        conditions=[
                             Code(code="F50"),
                             Code(code="I46")
                         ],
-                        add_medications=[
-                            MedicationRef(reference="312086",reference_type="SCD")
+                        medications=[
+                            MedicationRef(reference="312086",reference_type="SCD"),
+                            MedicationRef(reference="617311",reference_type="SCD")
                         ]
                     )
                 )
@@ -245,7 +246,7 @@ if __name__ == "__main__":
     # update_patient_insurance_data_response = update_patient_insurance_data(args.host, token_response.access_token)
     # print(update_patient_insurance_data_response)
 
-    update_patient_health_profile_response = add_allergies_conditions_medications(args.host, token_response.access_token)
+    update_patient_health_profile_response = update_allergies_conditions_medications(args.host, token_response.access_token)
     print(update_patient_health_profile_response)
 
 
