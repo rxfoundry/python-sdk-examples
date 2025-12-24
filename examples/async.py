@@ -180,6 +180,35 @@ def update_patient_insurance_data(host: str, token: str):
         except ApiException as e:
             print("Exception when calling AsyncApi->add_patient_insurance_data: %s\n" % e)
 
+def update_patient_insurance_data_by_uuid(host: str, token: str):
+    configuration = rxfoundry.clients.swifty_api.Configuration(
+        host=f"{host}/api", access_token=token
+    )
+    with rxfoundry.clients.swifty_api.ApiClient(configuration) as api_client:
+        api_instance = rxfoundry.clients.swifty_api.AsyncApi(api_client)
+        try:
+            patient_activity_notification = PatientActivityNotification(
+                external_patient_id="7654321",
+                external_system_slug="CPD-FRONTEND",
+                action = "updated",
+                activity_data=PatientActivityData(
+                    PatientInsuranceData(
+                        uuid="3e55983e-b5fe-4487-81bd-bd7731fb3445",
+                        member_id="123456789",
+                        rx_bin="543210",
+                        rx_group="RX1234",
+                        rx_pcn="754321-1",
+                        object_type="insurance",
+                    )
+                )
+            )
+            api_response = api_instance.create_patient_activity(
+                patient_activity_notification=patient_activity_notification
+            )
+            return api_response
+        except ApiException as e:
+            print("Exception when calling AsyncApi->add_patient_insurance_data: %s\n" % e)
+
 def update_allergies_conditions_medications(host: str, token: str):
     configuration = rxfoundry.clients.swifty_api.Configuration(
         host=f"{host}/api", access_token=token
@@ -197,15 +226,15 @@ def update_allergies_conditions_medications(host: str, token: str):
                         allergies=[
                             Code(code="39579001"),
                             Code(code="91939003")
-                        ],
+                        ], # Codes must be from Code_Type_Name = SNOMED_Allergies.  Use Codes API for now to retrieve them.
                         conditions=[
                             Code(code="F50"),
                             Code(code="I46")
-                        ],
+                        ], # Codes must be from Code_Type_Name = ICD_10_Conditions.  Use Codes API for now to retrieve them.
                         medications=[
                             MedicationRef(reference="312086",reference_type="SCD"),
                             MedicationRef(reference="617311",reference_type="SCD")
-                        ]
+                        ], # Can use SCD, SBD, NCD, GPI or UUID to the Medication table.  Use Medication API for now to retrieve them.
                     )
                 )
             )
@@ -245,6 +274,12 @@ if __name__ == "__main__":
 
     # update_patient_insurance_data_response = update_patient_insurance_data(args.host, token_response.access_token)
     # print(update_patient_insurance_data_response)
+
+    # update_patient_insurance_data_response = update_patient_insurance_data(args.host, token_response.access_token)
+    # print(update_patient_insurance_data_response)
+
+    update_patient_insurance_data_response = update_patient_insurance_data_by_uuid(args.host, token_response.access_token)
+    print(update_patient_insurance_data_response)
 
     update_patient_health_profile_response = update_allergies_conditions_medications(args.host, token_response.access_token)
     print(update_patient_health_profile_response)
